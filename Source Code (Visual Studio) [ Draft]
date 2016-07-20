@@ -1,0 +1,1151 @@
+// ConsoleApplication1.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include<fstream>
+#include<conio.h>
+#include<stdio.h>
+//#include<process>
+#include<string>
+#include<iomanip>
+//#include <dos>
+#include<windows.h>
+
+using namespace std;
+
+//FUNCTIONS INCLUDED
+//Functions in Class Book
+void create_book();
+void show_book();
+void modify_book_nm();
+void modify_book_athr();
+void modify_book_nm();
+void modify_book_athr();
+void modify_book_athr();
+//Functions in Class Member
+void create_member();
+void show_member();
+void amodify_member();
+void amodify_member();
+void modify_member_name();
+void modify_member_name();
+void modify_member_pass();
+void amodify_staff();
+//Function to write in file
+void write_book();
+void write_member();
+//Function to read specific record from file
+void display_spb(int n);
+void display_spm(int n);
+//Function to modify record of file
+void modify_book_name();
+void modify_book_author();
+void modify_member_name();
+void modify_member_name();
+void modify_member_password();
+void amodify_member();
+void amodify_staff();
+//Function to delete record of file
+void delete_member();
+void delete_book();
+//Function to Display All Staff Member Listvoid display_alls()
+
+//Function To Display All Member List
+void display_alls();
+//Function to display Books list
+void display_allb();
+//Function to issue book
+void book_issue();
+//Function to deposit book
+void book_deposit();
+//Introduction function
+void intro();
+//Function for guest access
+void guest_access();
+
+//Function to handle login access
+void login();
+//Function to get lastest value of id
+void bno_update();
+void id_update();
+//Main menu function
+void main_menu();
+//Administrator menu function
+void admin_menu();
+void admin_menu_m();
+void admin_menu_b();
+//Function for settings
+void settings();
+
+int a = 100, b = 100;
+static int *id = &a;
+static int *bno = &b;
+int fid = 0;
+char pwc[20];
+int staff_c;
+int mkey = 10;
+
+class book
+{
+	int lbno;
+	char bname[50];
+	char aname[20];
+public:
+	void create_book()
+	{
+		cout << "\nNEW BOOK ENTRY\n";
+		cout << "\nBook Number: " << *bno;
+		lbno = *bno;
+		cout << "\n\nEnter The Name of The Book: ";
+		gets_s(bname);
+		cout << "\n\nEnter The Author's Name: ";
+		gets_s(aname);
+		(*bno)++;
+		cout << "\n\n\nBook Created..";
+	}
+	void show_book()
+	{
+		cout << "\nBook Number : " << lbno;
+		cout << "\nBook Name : " << bname;
+		cout << "\nAuthor Name : " << aname;
+	}
+	void modify_book_nm()
+	{
+		cout << "\nBook Number : " << lbno;
+		cout << "\nModify Book Name : ";
+		gets_s(bname);
+	}
+	void modify_book_athr()
+	{
+		cout << "\nBook Number : " << lbno;
+		cout << "\nModify Book Author's Name: ";						 	cout << "\nModify Author's Name of Book : ";
+		gets_s(aname);
+	}
+	int retbno()
+	{
+		return lbno;
+	}
+	void report()
+	{
+		cout << lbno << setw(20) << bname << setw(20) << aname << setw(10) << endl;
+	}
+
+}; //class ends here
+
+class member
+{
+	int lid;
+	char name[20];
+	int  membno;
+	char pw[20];
+	int token;
+	int staff;
+public:
+
+	void create_member()
+	{
+		//clrscr();
+		char c_pw[20];
+		cout << "\nNEW MEMBER ENTRY\n";
+		cout << "\nYour Member ID: " << *id;
+		lid = *id;
+		cout << "\n\nEnter The Name of The Member: ";
+		gets_s(name);
+		cout << "Enter Password: ";
+		gets_s(pw);
+		token = 0;
+		membno = 0;
+		cout << "\n\nMember Record Created..";
+		staff = 0;
+		(*id)++;
+	}
+	void show_member()
+	{
+		cout << "\nMember ID : " << lid;
+		cout << "\nMember Name : ";
+		puts(name);
+		cout << "\nPassword(Spaces are not allowed): ";
+		puts(pw);
+		cout << "\nNo of Book issued : " << token;
+		if (token == 1)
+			cout << "\nBook Number: " << membno;
+	}
+	void amodify_member()
+	{
+		cout << "\nAdmission Number: " << lid;
+		cout << "\nModify Member Name: ";
+		gets_s(name);
+		cout << "Modify Password: ";
+		gets_s(pw);
+	}
+
+	void modify_member_name()
+	{
+		cout << "\nAdmission Number : " << lid;
+		cout << "\nModify Member Name : ";
+		gets_s(name);
+	}
+	void modify_member_pass()
+	{
+		cout << "\nAdmission Number: " << lid;
+		cout << "\nMember Name : ";
+		cout << name;
+		cout << "Modify Password: ";
+		gets_s(pw);
+	}
+	void amodify_staff()
+	{
+		//clrscr();
+		cout << "\n\nStaff Settings";
+		cout << "\n0. Remove Staff";
+		cout << "\n1. Make Staff";
+		cout << "\nEnter Choice: ";
+		cin >> staff;
+		staff_c = staff;
+	}
+	int retid()
+	{
+		return lid;
+	}
+	int retstbno()
+	{
+		return membno;
+	}
+	int retstaff()
+	{
+		return staff;
+	}
+	char* retpw()
+	{
+		return pw;
+	}
+	int rettoken()
+	{
+		return token;
+	}
+	void addtoken()
+	{
+		token = 1;
+	}
+	void resettoken()
+	{
+		token = 0;
+	}
+	void getstbno(int t)
+	{
+		membno = t;
+	}
+	void report()
+	{
+		cout << "\t" << lid << setw(20) << name << setw(15) << pw << setw(15) << token << endl;
+	}
+	void s_report()
+	{
+		if (staff == 1)
+			cout << "\t" << lid << setw(20) << name << setw(15) << endl;
+	}
+
+}; //class ends here
+
+fstream fp, fp1;
+book bk;
+member mem;
+
+void write_book()
+{
+	char ch;
+	fp.open("book.dat", ios::out | ios::app);
+	do {
+		//clrscr();
+		bk.create_book();
+		fp.write((char*)&bk, sizeof(book));
+		cout << "\n\nDo you want to add more record..(y/n?)";
+		cin >> ch;
+	} while (ch == 'y' || ch == 'Y');
+	fp.close();
+}
+void write_member()
+{
+	char ch;
+	fp.open("member.dat", ios::out | ios::app);
+	mem.create_member();
+	cout << "\n\nThanks for Registering yourself";
+	cout << "\nPleaser Login Again";
+	cout << "\nPress ENTER to continue";
+	cin.get();
+	fp.write((char*)&mem, sizeof(member));
+	fp.close();
+}
+void display_spb(int n)
+{
+	cout << "\nBOOK DETAILS\n";
+	int flag = 0;
+	fp.open("book.dat", ios::in);
+	while (fp.read((char*)&bk, sizeof(book)))
+	{
+		if (bk.retbno() == n)
+		{
+			bk.show_book();
+			flag = 1;
+		}
+	}
+	fp.close();
+	if (flag == 0)
+		cout << "\n\nBook does not exist";
+	cin.get();
+}
+void display_spm(int n)
+{
+	cout << "\nMEMBER DETAILS\n";
+	int flag = 0;
+	fp.open("member.dat", ios::in);
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		if (mem.retid() == n)
+		{
+			mem.show_member();
+			flag = 1;
+		}
+	}
+	fp.close();
+	if (flag == 0)
+		cout << "\n\nMember does not exist";
+	cin.get();
+}
+void modify_book_name()
+{
+	int n;
+	int found = 0;
+	//clrscr();
+	cout << "\n\n\tMODIFY BOOK REOCORD - Name ";
+	cout << "\n\n\tEnter The Number of The Book: ";
+	cin >> n;
+	fp.open("book.dat", ios::in | ios::out);
+	while (fp.read((char*)&bk, sizeof(book)) && found == 0)
+	{
+		if (bk.retbno() == n)
+		{
+			bk.show_book();
+			cout << "\nEnter The New Details of book" << endl;
+			bk.modify_book_nm();
+			int pos = -1 * sizeof(bk);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&bk, sizeof(book));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+void modify_book_author()
+{
+	int n;
+	int found = 0;
+	//clrscr();
+	cout << "\n\n\tMODIFY BOOK REOCORD - Author ";
+	cout << "\n\n\tEnter The Number of The Book: ";
+	cin >> n;
+	fp.open("book.dat", ios::in | ios::out);
+	while (fp.read((char*)&bk, sizeof(book)) && found == 0)
+	{
+		if (bk.retbno() == n)
+		{
+			bk.show_book();
+			cout << "\nEnter The New Details of book" << endl;
+			bk.modify_book_athr();
+			int pos = -1 * sizeof(bk);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&bk, sizeof(book));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+void modify_member_name()
+{
+	int n;
+	int found = 0;
+	//clrscr();
+	cout << "\n\n\tMODIFY MEMBER NAME";
+	n = fid;
+	fp.open("member.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == n)
+		{
+			mem.show_member();
+			cout << "\nEnter The New Name of Member: " << endl;
+			mem.modify_member_name();
+			int pos = -1 * sizeof(mem);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&mem, sizeof(member));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+
+void modify_member_password()
+{
+	int n;
+	int found = 0;
+	//clrscr();
+	cout << "\n\n\tMODIFY MEMBER PASSWORD";
+	n = fid;
+	fp.open("member.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == n)
+		{
+			mem.show_member();
+			mem.modify_member_pass();
+			int pos = -1 * sizeof(mem);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&mem, sizeof(member));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+void amodify_member()
+{
+	int n;
+	int found = 0;
+	clrscr();
+	cout << "\n\n\tMODIFY MEMBER RECORD";
+	cout << "\n\n\tEnter The Admission Number of The Member: ";
+	cin >> n;
+	n = fid;
+	fp.open("member.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == n)
+		{
+			mem.show_member();
+			cout << "\nEnter The New Details of Member: " << endl;
+			mem.amodify_member();
+			int pos = -1 * sizeof(mem);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&mem, sizeof(member));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+
+void amodify_staff()
+{
+	int n;
+	int found = 0;
+	//clrscr();
+	cout << "\n\n\tMODIFY MEMBER RECORD";
+	cout << "\n\n\tEnter The Admission Number of The Member: ";
+	cin >> n;
+	fp.open("member.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == n)
+		{
+			clrscr();
+			mem.show_member();
+			mem.amodify_staff();
+			int pos = -1 * sizeof(mem);
+			fp.seekp(pos, ios::cur);
+			fp.write((char*)&mem, sizeof(member));
+			cout << "\n\n\t Record Updated";
+			found = 1;
+		}
+	}
+	fp.close();
+	if (found == 0)
+		cout << "\n\n Record Not Found ";
+	cin.get();
+}
+void delete_member()
+{
+	int n;
+	int flag = 0;
+	//clrscr();
+	cout << "\n\n\n\tDELETE MEMBER";
+	cout << "\n\nEnter The Admission Number of the Member You Want To Delete : ";
+	cin >> n;
+	fp.open("member.dat", ios::in | ios::out);
+	fstream fp2;
+	fp2.open("Temp.dat", ios::out);
+	fp.seekg(0, ios::beg);
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		if (mem.retid() != n)
+			fp2.write((char*)&mem, sizeof(member));
+		else
+			flag = 1;
+	}
+	fp2.close();
+	fp.close();
+	remove("member.dat");
+	rename("Temp.dat", "member.dat");
+	if (flag == 1)
+		cout << "\n\n\tRecord Deleted ..";
+	else
+		cout << "\n\nRecord not found";
+	cin.get();
+}
+void delete_book()
+{
+	int n;
+	clrscr();
+	cout << "\n\n\n\tDELETE BOOK ";
+	cout << "\n\nEnter The Number of the Book You Want To Delete : ";
+	cin >> n;
+	fp.open("book.dat", ios::in | ios::out);
+	fstream fp2;
+	fp2.open("Temp.dat", ios::out);
+	fp.seekg(0, ios::beg);
+	while (fp.read((char*)&bk, sizeof(book)))
+	{
+		if (bk.retbno() != n)
+		{
+			fp2.write((char*)&bk, sizeof(book));
+		}
+	}
+	fp2.close();
+	fp.close();
+	remove("book.dat");
+	rename("Temp.dat", "book.dat");
+	cout << "\n\n\tRecord Deleted ..";
+	cin.get();
+}
+void display_alls()
+{
+	clrscr();
+	fp.open("member.dat", ios::in);
+	if (!fp)
+	{
+		cout << "ERROR!!! FILE COULD NOT BE OPEN ";
+		cin.get();
+		return;
+	}
+	cout << "\n\n\t\tSTAFF LIST\n\n";
+	cout << "==================================================================\n";
+	cout << "\tMember ID" << setw(10) << "Name";
+	cout << "\n==================================================================\n";
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		mem.s_report();
+	}
+	fp.close();
+	cin.get();
+}
+
+void display_allm()
+{
+	clrscr();
+	fp.open("member.dat", ios::in);
+	if (!fp)
+	{
+		cout << "ERROR!!! FILE COULD NOT BE OPEN ";
+		cin.get();
+		return;
+	}
+	cout << "\n\n\t\tMEMBER LIST\n\n";
+	cout << "==================================================================\n";
+	cout << "\tMember ID" << setw(10) << "Name" << setw(20) << "Password" << setw(20) << "Book Issued\n";
+	cout << "==================================================================\n";
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		mem.report();
+	}
+	fp.close();
+	cin.get();
+}
+void display_allb()
+{
+	clrscr();
+	fp.open("book.dat", ios::in);
+	if (!fp)
+	{
+		cout << "ERROR!!! FILE COULD NOT BE OPEN ";
+		cin.get();
+		return;
+	}
+	cout << "\n\n\t\tBook LIST\n\n";
+	cout << "=========================================================================\n";
+	cout << "Book Number" << setw(20) << "Book Name" << setw(25) << "Author\n";
+	cout << "=========================================================================\n";
+	while (fp.read((char*)&bk, sizeof(book)))
+	{
+		bk.report();
+	}
+	fp.close();
+	cin.get();
+}
+void book_issue()
+{
+	int bn;
+	int mn;
+	int found = 0, flag = 0;
+	clrscr();
+	cout << "\n\nBOOK ISSUE ";
+	mn = fid;
+	cout << "\n\n\tThe Member's User ID:" << mn;
+	//cin>>sn;
+	fp.open("member.dat", ios::in | ios::out);
+	fp1.open("book.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == mn)
+		{
+			found = 1;
+			if (mem.rettoken() == 0)
+			{
+				cout << "\n\n\tEnter The Book Number: ";
+				cin >> bn;
+				while (fp1.read((char*)&bk, sizeof(book)) && flag == 0)
+				{
+					if (bk.retbno() == bn)
+					{
+						bk.show_book();
+						flag = 1;
+						mem.addtoken();
+						mem.getstbno(bk.retbno());
+						int pos = -1 * sizeof(mem);
+						fp.seekp(pos, ios::cur);
+						fp.write((char*)&mem, sizeof(member));
+						cout << "\n\n\t Book issued successfully\n\nPlease Note: Write the current date in backside of your book \nand submit within 15 days fine Rs. 1 for each day after 15 days period";
+					}
+				}
+				if (flag == 0)
+					cout << "Book no does not exist";
+			}
+			else
+				cout << "You have not returned the last book ";
+		}
+	}
+	if (found == 0)
+		cout << "Member record not exist";
+	cin.get();
+	fp.close();
+	fp1.close();
+}
+void book_deposit()
+{
+	int bn;
+	int mn;
+	int found = 0, flag = 0, day, fine;
+	clrscr();
+	cout << "\n\nBOOK DEPOSIT ";
+	mn = fid;
+	cout << "\n\n\tThe Member's ID: " << mn;
+	fp.open("member.dat", ios::in | ios::out);
+	fp1.open("book.dat", ios::in | ios::out);
+	while (fp.read((char*)&mem, sizeof(member)) && found == 0)
+	{
+		if (mem.retid() == mn)
+		{
+			found = 1;
+			if (mem.rettoken() == 1)
+			{
+				while (fp1.read((char*)&bk, sizeof(book)) && flag == 0)
+				{
+					if (bk.retbno() == mem.retstbno())
+					{
+						bk.show_book();
+						flag = 1;
+						cout << "\n\nBook Deposited in Number of Days: ";
+						cin >> day;
+						if (day>15)
+						{
+							fine = (day - 15) * 1;
+							cout << "\n\nFine has to deposited Rs. " << fine;
+						}
+						mem.resettoken();
+						int pos = -1 * sizeof(mem);
+						fp.seekp(pos, ios::cur);
+						fp.write((char*)&mem, sizeof(member));
+						cout << "\n\n\t Book deposited successfully";
+					}
+				}
+				if (flag == 0)
+					cout << "Book no does not exist";
+			}
+			else
+				cout << "No book is issued..please check!!";
+		}
+	}
+	if (found == 0)
+		cout << "Member record does not exist";
+	cin.get();
+	fp.close();
+	fp1.close();
+}
+void intro()
+{
+	clrscr();
+	cout << "\t\tLIBRARY";
+	cout << "\n\t\tMANAGEMENT";
+	cout << "\n\t\tSYSTEM";
+	cout << "\n\nMADE BY: ";
+	cout << "\n\nBOARD ROLL NUMBER: 9155260";
+	cout << "\n\nSCHOOL : Ryan International School";
+	cin.get();
+}
+
+void login_intro();
+void admin_menu();
+
+void guest_access()
+{
+	int ch = 0;
+	do
+	{
+	gm:
+		clrscr();
+		//gotoxy(15, 10);
+		cout << "Guest Menu";
+		//gotoxy(10, 11);
+		cout << "1. View All Books";
+		//gotoxy(10, 12);
+		cout << "2. View Specific Book";
+		//gotoxy(10, 13);
+		cout << "3. Become A Member";
+		//gotoxy(10, 14);
+		cout << "11. Back";
+		//gotoxy(10, 15);
+		cout << "Enter Choice: ";
+		cin >> ch;
+
+		switch (ch)
+		{
+		case 1: display_allb();
+			break;
+		case 2:
+			int num;
+			clrscr();
+			cout << "\n\n\tPlease Enter The Book Number: ";
+			cin >> num;
+			display_spb(num);
+			break;
+		case 3:
+			int ch1;
+			cout << " Are you sure that you wish to become a member?";
+			cout << "\n1.Yes\t2.No";
+			cin >> ch1;
+			if (ch1 == 1)
+			{
+				clrscr();
+				write_member();
+			}
+			//break;
+			else
+				return;
+			break;
+		case 11: login_intro();
+			break;
+		case 99:mkey = 0;
+			admin_menu();
+		default: "\a";
+		}
+	} while (ch);
+}
+int pass(int n, char pwe[]);
+void main_menu();
+
+void login()
+{
+	int n;
+	char pwe[20];
+	clrscr();
+	//gotoxy(10, 10);
+	cout << "Please Enter The Admission Number:  ";
+	cin >> n;
+	//gotoxy(10, 11);
+	cout << "Enter Password(No Spaces)     : ";
+	gets_s(pwe);
+	if (pass(n, pwe) == 1)
+	{
+		strcpy(pwc, pwe);
+		mkey = 1;
+		main_menu();
+	}
+
+}
+
+void login_intro()
+{
+	int ch = 0;
+	do
+	{
+		clrscr();
+		//gotoxy(15, 10);
+		cout << "Already a member?";
+		//gotoxy(15, 11);
+		cout << "If not,then why don't you Register yourself?";
+		//gotoxy(15, 14);
+		cout << "1. Login";
+		//gotoxy(15, 15);
+		cout << "2.Register";
+		//gotoxy(15, 16);
+		cout << "3.Guest Access";
+		//gotoxy(15, 17);
+		cout << "4.Exit";
+		//gotoxy(15, 18);
+		cout << "Enter Choice: ";
+		cin >> ch;
+		switch (ch)
+		{
+		case 1:	login();
+			break;
+		case 2:
+			clrscr();
+			write_member();
+			break;
+		case 3: guest_access();
+			break;
+		case 4: {
+			cout << " Program will terminate in few seconds...";
+			Sleep(3000);
+			exit(0);
+		}
+		default: "\a";
+		}
+	} while (ch);
+}
+
+int pass(int n, char pwe[])
+{
+	int flag = 0;
+	fp.open("member.dat", ios::in);
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		if (mem.retid() == n && strcmp(mem.retpw(), pwe) == 0)
+		{
+			//gotoxy(15, 13);
+			cout << "Access Granted";
+			//gotoxy(15, 14);
+			cout << "Press ENTER to continue.......";
+			flag = 1;
+			fid = n;
+			staff_c = mem.retstaff();
+		}
+		if (mem.retid() == n && strcmp(mem.retpw(), pwe) != 0)
+		{
+			flag = 2;
+		}
+	}
+	fp.close();
+	if (flag == 0)
+	{
+		//gotoxy(15, 13);
+		cout << "User does not exist";
+	}
+	if (flag == 2)
+	{
+		//gotoxy(15, 13);
+		cout << "\n\n User ID and password do not match";
+		//gotoxy(15, 14);
+		cout << "Access Denied!";
+	}
+	cin.get();
+	return flag;
+}
+void bno_update()
+{
+	clrscr();
+	int n = 0;
+	fp.open("book.dat", ios::in);
+	while (fp.read((char*)&bk, sizeof(book)))
+	{
+		n = bk.retbno();
+	}
+	fp.close();
+	if (n != 0)
+	{
+		++n;
+		b = n;
+	}
+	if (n == 0)
+	{
+		n = 100;
+		b = n;
+	}
+}
+
+void id_update()
+{
+	clrscr();
+	int n = 0;
+	fp.open("member.dat", ios::in);
+	while (fp.read((char*)&mem, sizeof(member)))
+	{
+		n = mem.retid();
+	}
+	fp.close();
+	if (n != 0)
+	{
+		++n;
+		a = n;
+	}
+	if (n == 0)
+	{
+		n = 100;
+		a = n;
+	}
+}
+
+void  admin_menu();
+void settings();
+void main_menu();
+
+void main_menu()
+{
+	int ch = 0;
+	do
+	{
+		clrscr();
+		cout << "\n\n\n\tMAIN MENU";
+		cout << "\n\n\t01. Book Issue";
+		cout << "\n\n\t02. Book Deposit";
+		cout << "\n\n\t03. Administrator Menu";
+		cout << "\n\n\t04. Settings";
+		cout << "\n\n\t05. Log Out";
+		cout << "\n\n\t06. Key Features;
+		cout << "\n\n\tPlease Select Your Option (1-4) ";
+		cout << "Enter choice: ";
+		cin >> ch;
+		switch (ch)
+		{
+		case 1: clrscr();
+			book_issue();
+			break;
+		case 2: book_deposit();
+			break;
+		case 3: if (staff_c == 1)
+		{
+			admin_menu();
+		}
+				else
+				{
+					clrscr();
+					cout << "\n\nNot a staff Member" << endl;
+					cout << "Access Denied" << endl;
+					cout << "Heading back to Main Menu in few seconds";
+					Sleep(5000);
+					main_menu();
+				}
+				break;
+		case 4:
+			clrscr();
+			settings();
+		case 5: fid = 0;
+			login_intro();
+			Break;
+ 		case 6: cout<<"1. Book ID and Member ID is auto generated and
+ 	 	 	updated."<<endl;
+cout<<"2. Program got administrative features only for Staff         Members."<<endl;
+			cout<<"3. Each Member have his unique ID and a password."<<endl;
+			cout<<"4. Entire Information is secured using classes."<<endl;				cout<<"5. Program is highly user friendly."<<endl;
+			break;
+		default:cout << "\a";
+		}
+	} while (ch);
+}
+
+void admin_menu_m();
+void admin_menu_b();
+void admin_menu()
+{
+	clrscr();
+	int ch2;
+	cout << "\n\n\n\tStaff Menu";
+	cout << "\n\n\t1.  Member Menu";
+	cout << "\n\n\t2.  Book Menu";
+	cout << "\n\n\t22.Back To Main Menu";
+	cout << "\n\n\tPlease Enter Your Choice: ";
+	cin >> ch2;
+	switch (ch2)
+	{
+	case 1: clrscr();
+		admin_menu_m();
+		break;
+	case 2: admin_menu_b();
+		break;
+	case 22:if (mkey == 0)
+		guest_access();
+			else
+				main_menu();
+		break;
+	default:cout << "\a";
+	}
+	admin_menu();
+}
+
+
+void admin_menu_m()
+{
+	clrscr();
+	int ch2;
+	cout << "\n\n\n\tStaff Menu - Member";
+	cout << "\n\n\t1.  Create Member";
+	cout << "\n\n\t2.  Display All Member Records";
+	cout << "\n\n\t3.  Display All Staff Member Records";
+	cout << "\n\n\t4.  Display Specific Member Record";
+	cout << "\n\n\t5.  Modify Member Record";
+	cout << "\n\n\t6.  Delete Member Record";
+	cout << "\n\n\t11. Make or Remove Staff Member";
+	cout << "\n\n\t22.Back To Main Menu";
+	cout << "\n\n\tPlease Enter Your Choice: ";
+	cin >> ch2;
+	switch (ch2)
+	{
+	case 1: clrscr();
+		write_member();
+		break;
+	case 2: display_allm();
+		break;
+	case 3: display_alls();
+		break;
+	case 4:
+		int num;
+		clrscr();
+		cout << "\n\n\tPlease Enter The Admission ID: ";
+		cin >> num;
+		display_spm(num);
+		break;
+	case 5: amodify_member();
+		break;
+	case 6: delete_member();
+		break;
+	case 11: amodify_staff();
+		break;
+	case 22: return;
+	default:cout << "\a";
+	}
+	admin_menu();
+}
+
+
+void admin_menu_b()
+{
+	clrscr();
+	int ch2;
+	cout << "\n\n\n\tStaff Menu - Book";
+	cout << "\n\n\t1.  Create Book ";
+	cout << "\n\n\t2.  Display All Books";
+	cout << "\n\n\t3.  Display Specific Book ";
+	cout << "\n\n\t4.  Modify Book";
+	cout << "\n\n\t5. Delete Book ";
+	cout << "\n\n\t22.Back To Main Menu";
+	cout << "\n\n\tPlease Enter Your Choice: ";
+	cin >> ch2;
+	switch (ch2)
+	{
+	case 1: clrscr();
+		write_book(); break;
+	case 2: display_allb(); break;
+	case 3: {
+		int num;
+		clrscr();
+		cout << "\n\n\tPlease Enter The book Number: ";
+		cin >> num;
+		display_spb(num);
+		break;
+	}
+	case 4: {       clrscr();
+		int ch1 = 0;
+		cout << "Modify Book";
+		cout << "\n1. Name\n2. Author\n3. Back\nEnter Choice: ";
+		cin >> ch1;
+		switch (ch1)
+		{
+		case 1: modify_book_name();
+			break;
+		case 2: modify_book_author();
+			break;
+		case 3: return;
+		default: "\a";
+		}
+	}
+			break;
+	case 5: delete_book();
+		break;
+	case 22: return;
+	default:cout << "\a";
+	}
+	admin_menu();
+}
+void settings()
+{
+	int ch = 0;
+	char pwt[20];
+	clrscr();
+	cout << "\n\n\tSettimgs";
+	cout << "\n\n\n\t01. Edit Name";
+	cout << "\n\n\t02. Edit Password";
+	cout << "\n\n\t11. Main Menu";
+	cout << "\n\nEnter Choice: ";
+	cin >> ch;
+
+	switch (ch)
+	{
+	case 1: modify_member_name();
+		cout << "\n\nSettings Updated";
+		break;
+	case 2: clrscr();
+		int pwcheck = 1;
+		cout << "\n\nEnter Current Password: ";
+		gets_s(pwt);
+		if ((strcmp(pwc, pwt)) == 0)
+		{
+			pwcheck = 0;
+		}
+		if (pwcheck == 0)
+		{
+			modify_member_password();
+		}
+		if (pwcheck == 1)
+		{
+			cout << "\n\nIncorrect Password";
+			cout << "\n\nGoing Back to Settings.....";
+			Sleep(3000);
+			return;
+		}
+		cin.get();
+		break;
+	case 11:main_menu();
+		break;
+	default: "\a";
+	}
+	main_menu();
+}
+void main()
+{
+	int ch;
+	intro();
+	id_update();
+	bno_update();
+	login_intro();
+
+}
+
+
+
