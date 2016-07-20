@@ -7,7 +7,6 @@ It is a simple Library Management System program which includes the following fr
 3. Each Member have his unique ID and a password.
 4. Entire Information is secured using classes.
 5. Program is highly user friendly.
-6. 
 
 I would really appreciate if anyone would like to contribute to this project and make it better.
 
