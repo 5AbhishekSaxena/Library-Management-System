@@ -692,7 +692,7 @@ void intro()
         	cout<<"\t\tLIBRARY";
         	cout<<"\n\t\tMANAGEMENT";
         	cout<<"\n\t\tSYSTEM";
-        	cout<<"\n\nMADE BY: ";
+        	cout<<"\n\nMADE BY: Abhishek Saxena";
         	getch();
 }
  
@@ -913,7 +913,7 @@ void main_menu()
                     	cout<<"\n\n\t03. Administrator Menu";
                     	cout<<"\n\n\t04. Settings";
                     	cout<<"\n\n\t05. Log Out";
-                    	cout<<"\n\n\t06. Sample Section";
+                    	cout<<"\n\n\t06. Key Features";
                     	cout<<"\n\n\tPlease Select Your Option (1-4) ";
                     	cout<<"Enter choice: ";
                     	cin>>ch;
@@ -944,7 +944,11 @@ void main_menu()
                                 	case 5: fid=0;
                                             	login_intro();
                                             	break;
-                                	case 6: login();
+                                	case 6: cout<<"1. Book ID and Member ID is auto generated and updated."<<endl;
+						cout<<"2. Program got administrative features only for Staff Members."<<endl;
+						cout<<"3. Each Member have his unique ID and a password."<<endl;
+						cout<<"4. Entire Information is secured using classes."<<endl;;
+						cout<<"5. Program is highly user friendly."<<endl;
                                             	break;
                                 	default :cout<<"\a";
                     	}
